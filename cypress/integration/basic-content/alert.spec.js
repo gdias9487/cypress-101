@@ -9,11 +9,7 @@ describe('Work with Alerts', () => {
     })
 
     it('Alerts', () => {
-        cy.get('#alert').click()
-        cy.on('window:alert', msg => {
-            console.log(msg)
-            expect(msg).to.be.equal('Alert Simples')
-        })
+        cy.clickAlert('#alert', 'Alert Simples')
     })
 
     it('Alert com mock', () => {
@@ -63,13 +59,13 @@ describe('Work with Alerts', () => {
         const stub = cy.stub().as('alerta')
         cy.on('window:alert', stub)
         cy.get('#formCadastrar').click()
-            .then(() => expect(stub.getCall(0).to.be.calledWith('Nome eh obrigatorio')))
+            .then(() => expect(stub.getCall(0)).to.be.calledWith('Nome eh obrigatorio'))
         cy.get('#formNome').type('Jake')
         cy.get('#formCadastrar').click()
-            .then(() => expect(stub.getCall(1).to.be.calledWith('Sobrenome eh obrigatorio')))
+            .then(() => expect(stub.getCall(1)).to.be.calledWith('Sobrenome eh obrigatorio'))
         cy.get('[data-cy=dataSobrenome]').type('Peralta')
         cy.get('#formCadastrar').click()
-            .then(() => expect(stub.getCall(2).to.be.calledWith('Sexo eh obrigatorio')))
+            .then(() => expect(stub.getCall(2)).to.be.calledWith('Sexo eh obrigatorio'))
         cy.get('#formSexoMasc').click()
         cy.get('#formCadastrar').click()
 
